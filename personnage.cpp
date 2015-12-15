@@ -8,7 +8,7 @@
 #pragma hdrstop
 #include <tchar.h>
 #pragma argsused
-
+ 
 #define TOP     72      //numéros associés avec les touches fléchées haut
 #define GAUCHE  75 //
 #define DROIT    77
@@ -21,8 +21,8 @@ int dir = 0;
 int x=39,y=22;
 int anteriorpx,anteriorpy;
 char tecla;
-
-long int puntos = -5;
+ 
+long int points =-1;
 int vie = 3;
 
 
@@ -30,7 +30,7 @@ void gotoxy(int x, int y)  // fonction qui positionne le curseur sur la coordonn
 {
     HANDLE hCon;
     COORD dwPos;
-
+ 
     dwPos.X = x;
     dwPos.Y = y;
     hCon = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -41,9 +41,9 @@ void gotoxy(int x, int y)  // fonction qui positionne le curseur sur la coordonn
 void setCColor( int color)
 {
         static HANDLE hConsole;
-
+ 
         hConsole = GetStdHandle( STD_OUTPUT_HANDLE );
-
+ 
         SetConsoleTextAttribute( hConsole, color | (backcolor * 0x20 + 0x100) );
 }
 
@@ -56,7 +56,7 @@ int color[8] = {
       0x005,
       0x00F,
       0x00D
-
+ 
      };
 
 
@@ -100,7 +100,7 @@ void pint_map()//Fonction qui  peint le bord de l'écran de jeux
      for(int i = 0 ; i < 78 ; i++){
          for(int j = 0 ; j < 30 ; j++){
                gotoxy(i,j);
-
+ 
                if(map[j][i] == 'X') {setCColor(color[0]);printf("%c",205);}
                if(map[j][i] == '_') {setCColor(color[7]); printf("%c",4);}
                else if(map[j][i] == 'Y') {setCColor(color[0]);printf("%c",186);}
@@ -108,8 +108,8 @@ void pint_map()//Fonction qui  peint le bord de l'écran de jeux
                else if(map[j][i] == 'B') {setCColor(color[0]);printf("%c",187);}
                else if(map[j][i] == 'C') {setCColor(color[0]);printf("%c",188);}
                else if(map[j][i] == 'D') {setCColor(color[0]);printf("%c",200);}
-
-
+ 
+ 
          }
      }
 }
@@ -118,10 +118,10 @@ void pacman(int x , int y){
      setCColor(color[1]);
      gotoxy(x,y); printf("%c",2);
 }
-
+ 
 void dessin_pacman(int x, int y){
      gotoxy(x,y); printf(" ");
-     if(map[y][x] == '_'){ map[y][x] = ' '; points += 5;}
+     if(map[y][x] == '_'){ map[y][x] = ' '; points += 1;}
 }
 
 void clear(){
@@ -131,47 +131,47 @@ void clear(){
       case TOP:
          dir = 0;
          break;
-
+ 
       case BAS:
          dir = 1;
          break;
-
+ 
       case DROIT:
          dir = 2;
          break;
-
+ 
       case GAUCHE:
          dir = 3;
          break;
-
+ 
       }// FIN SWITCH
-
+ 
    }// FIN DE IF
-
+ 
 }
 
 void duree(){
-
+     
  setCColor(color[1]);
    gotoxy(5,4); printf(" SCORE : ");
    gotoxy(5,6); printf("    ");
    setCColor(color[1]);
    gotoxy(5,6); printf("%ld",points);
-
+ 
    setCColor(color[1]);
    gotoxy(5,25); printf(" VIE :");
    for(int i = 0 ; i <= vie ; i++){
        gotoxy(5,i+27);
        printf(" ");
-
+ 
    }
-
-
+ 
+ 
 }
-
+ 
 
  int main(){
-
+     
      dessin_pacman(x,y);
      Sleep(55);
      pacman(x,y);
@@ -186,9 +186,9 @@ void duree(){
         dessin_pacman(x,y);
         x= 18;
       }
-
-
+      
+      
      system("pause>NULL");
-     return 0;
-
+     return 0; 
+    // getch();
      }
